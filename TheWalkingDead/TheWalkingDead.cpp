@@ -110,15 +110,19 @@ int main()
 				std::cout << "Vida : " << zombies[i].life << std::endl;
 			}
 		}
+		if (zombiesAreAlive == true && player.life <= 0) {
+			std::cout << "GAME OVER        ZOMBIES are the WINNERS";
+		}
+		else if (zombiesAreAlive == false && player.life > 0) {
+			std::cout << "GAME OVER        PLayer is the WINNER";
+		}
+		else if (zombiesAreAlive == true) {
+			std::cout << "Zombis are still alive" << std::endl;
+		}
 		i++;
 	} while ((player.isAlive() == true)&& (zombies[i].isAlive() == true));
 
-	if (zombiesAreAlive == true && player.life <= 0) {
-		std::cout << "GAME OVER        ZOMBIES are the WINNERS";
-	}
-	else if (zombiesAreAlive == false && player.life > 0) {
-		std::cout << "GAME OVER        PLayer is the WINNER";
-	}
+	
 
     return 0;
 }
