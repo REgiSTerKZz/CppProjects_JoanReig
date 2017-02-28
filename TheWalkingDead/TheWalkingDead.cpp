@@ -72,7 +72,7 @@ void Player::attack(Zombie &p) {
 		do 
 		{
 			zombiesAreAlive = false;
-			std::cout << "Jugador : " << std::endl << std::endl;
+			std::cout << "Jugador : " << std::endl;
 			std::cout << "Arma : ";
 			switch (player.weapon){
 			case Weapon::FISTS:			std::cout << "FISTS" << std::endl; break;
@@ -83,14 +83,14 @@ void Player::attack(Zombie &p) {
 			case Weapon::MACHINE_GUN:	std::cout << "MACHINE GUN" << std::endl; break;
 			}
 			std::cout << "Precision : " << player.precision << std::endl;
-			std::cout << "Vida : " << player.life << std::endl << std::endl;
+			std::cout << "Vida : " << player.life << std::endl;
 			for (int i = 0; i < NUM_ZOMB; i++) {
 				if (zombies[i].isAlive() == true) {
 					player.attack(zombies[i]);
 					zombies[i].attack(player);
 					zombiesAreAlive = true;
-					std::cout << std::endl; // hago un enter
-					std::cout << "Zombie [" << i << "] :" << std::endl;
+
+					std::cout << "Zombie [" << i << "] :     ";
 					std::cout << "Distancia al jugador : " << zombies[i].distanceToPlayer << std::endl;
 					std::cout << "Velocidad : " << zombies[i].speed << std::endl;
 					std::cout << "Ataque : " << zombies[i].damage << std::endl;
