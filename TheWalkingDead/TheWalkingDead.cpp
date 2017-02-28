@@ -89,7 +89,7 @@ void Player::attack(Zombie &p) {
 					player.attack(zombies[i]);
 					zombies[i].attack(player);
 					zombiesAreAlive = true;
-					std::cout << std::endl;
+					std::cout << std::endl; // hago un enter
 					std::cout << "Zombie [" << i << "] :" << std::endl;
 					std::cout << "Distancia al jugador : " << zombies[i].distanceToPlayer << std::endl;
 					std::cout << "Velocidad : " << zombies[i].speed << std::endl;
