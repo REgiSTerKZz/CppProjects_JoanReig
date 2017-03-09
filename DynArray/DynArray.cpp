@@ -4,10 +4,9 @@
 #include "stdafx.h"
 #include "DynArray.hh"
 // contrusctors
-DynArray::DynArray(void)
+DynArray::DynArray() :			// declarar les variables amb aquesta llista es més eficient (aixi tenim el cos de la fnció sense res)
+	m_capacity ( DYN_ARRAY_DEFAULT_SIZE),	m_data ( new int[m_capacity]),	m_size ( DYN_ARRAY_DEFAULT_SIZE)
 {
-	m_data = new int[DYN_ARRAY_DEFAULT_SIZE];
-	m_size = DYN_ARRAY_DEFAULT_SIZE;
 }
 
 DynArray::DynArray(size_t size, const int & value)
@@ -16,29 +15,31 @@ DynArray::DynArray(size_t size, const int & value)
 	for (int i = 0; i < size; i++) {
 		m_data[i] = value;
 	}
-
 }
 
 DynArray::~DynArray() {
 	delete[]m_data;
 	m_data = nullptr;
 }
+
 int * DynArray::begin(void) const
 {
-	return &m_data[0];
+	return m_data;
 }
+
 int * DynArray::end(void) const
 {
-	return&m_data[m_size-1];
+	return m_data + m_size;
 }
+
 // metodos
 void DynArray::fill(int * first, int * last, int value)
 {
-	int *p = first;
-	do {
-		*p = value;
-		p++;
-	} while (p != last);
+
+	while (first != last) {
+		*first = value;
+		++first;
+	}
 }
 
 int & DynArray::operator[](size_t n) const
@@ -65,4 +66,38 @@ bool operator==(const DynArray & lhs, const DynArray & rhs)
 			}
 		}
 	}
+}
+
+void DynArray::push(const int & val)
+{
+	if (m_size < m_capacity) {
+		m_data[m_size] = val;
+	}
+	else {
+		int *d_data = new int[m_size + 1];
+		for (int i = 0; i < m_size; i++) {
+			d_data[i] = m_data[i];
+		}
+		d_data[m_size] = val;
+		delete[] m_data;
+		m_data = d_data;
+		m_capacity++;
+		
+	}
+	m_size++;
+}
+
+void DynArray::pop(void)
+{
+
+}
+
+void DynArray::erase(size_t position)
+{
+
+}
+
+size_t DynArray::capacity(void) const
+{
+	return size_t();
 }
