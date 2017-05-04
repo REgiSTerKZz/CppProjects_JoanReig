@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Header.h"
 #include <vector>
+#include <iterator>
 #include <algorithm>
 
 
@@ -48,7 +49,7 @@ int main() {
 // e
 
 // f
-	std::stack<int> s11({5, 3, 1, 7});
+	std::stack<int> s11({5, 3, 6, 7, 1, 7});
 	change(s11);
 
 	return 0;
@@ -58,8 +59,8 @@ int main() {
 std::stack<int> superMerge(std::stack<int> A, std::stack<int> B) {
 	std::stack<int> C;
 	int cont = 0;
-	int midaA = A.size();
-	int midaB = B.size();
+	size_t midaA = A.size();
+	size_t midaB = B.size();
 	while(cont <= midaA) {
 		C.push(A.top());
 		A.pop();
@@ -102,7 +103,7 @@ std::queue<int> transformToQ(std::stack<int> A) {
 	std::queue<int> Q;
 	std::stack<int> B;
 	int i = 0;
-	int midaA = A.size();
+	size_t midaA = A.size();
 	while (i < midaA)
 	{
 		B.push(A.top());
@@ -124,17 +125,19 @@ bool isHat(std::stack<int> A, std::stack<int> B) {
 }
 
 void change(std::stack<int>& A) {
-	std::deque<int> D;
-	int mida = A.size();
-
-	for (int i = 0; i < mida; i++) {
-		D.push_back(A.top());
+	std::vector<int> Vec;
+	size_t mida = A.size();
+	int i = 0;
+	while (i < mida) {
+		Vec.insert(Vec.begin(), A.top());
 		A.pop();
+		i++;
 	}
-	int B = D[0];
-	D[0] = D[D.size() - 1];
-	D[D.size() - 1] = B;
-	for (auto i = D.begin(); i != D.end(); ++i) {
+	int buf = Vec[0];
+	Vec[0] = Vec.back();
+	Vec.pop_back();
+	Vec.push_back(buf);
+	for (std::vector<int>::iterator i = Vec.begin(); i != Vec.end(); ++i) {
 		A.push(*i);
 	}
 }
