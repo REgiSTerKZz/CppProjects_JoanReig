@@ -25,7 +25,7 @@ int main() {
 	std::stack < std::string > s5;
 	s5.push("STRING");
 	std::stack<std::string> s6;
-	s6 = putHat(s4, s5);
+//	s6 = putHat(s4, s5);
 
 //	c
 	std::stack<int> s7;
@@ -33,7 +33,7 @@ int main() {
 	s7.push(7);
 	s7.push(17);
 	std::queue<int> s8;
-	s8 = transformToQ(s7);
+//	s8 = transformToQ(s7);
 
 //	d
 	std::stack<int> s9;
@@ -45,12 +45,13 @@ int main() {
 	s7.push(7);
 	s7.push(11);
 	s7.push(16);
+	isHat(s9, s10);
 	
 // e
 
 // f
 	std::stack<int> s11({5, 3, 6, 7, 1, 7});
-	change(s11);
+//	change(s11);
 
 	return 0;
 }
@@ -120,8 +121,41 @@ std::queue<int> transformToQ(std::stack<int> A) {
 }
 
 bool isHat(std::stack<int> A, std::stack<int> B) {
+	size_t midaA = A.size(), midaB = B.size(), min;
+	std::vector<int> Vec1, Vec2;
+	int i = 0;
+	bool Hat = false;
+	if (A.size() > B.size())
+		min = B.size();
+	else if (A.size() < B.size())
+		min = A.size();
+	else
+		min = A.size();
+	while (i < midaA)
+	{
+		Vec1.insert(Vec1.end(), A.top());
+		A.pop();
+		i++;
+	}
+	i = 0;
+	while (i < midaB)
+	{
+		Vec2.insert(Vec2.end(), B.top());
+		B.pop();
+		i++;
+	}
 
-	return false;
+	for (auto it = 0; it < min; it++) {
+		if (Vec1[it] == Vec2[it]) {
+			Hat = true;
+		}
+		else {
+			Hat = false;
+			break;
+		}
+	}
+
+	return Hat;
 }
 
 void change(std::stack<int>& A) {
