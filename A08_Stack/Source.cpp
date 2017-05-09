@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Header.h"
 #include <vector>
+#include <iterator>
 #include <algorithm>
 
 
@@ -24,7 +25,7 @@ int main() {
 	std::stack < std::string > s5;
 	s5.push("STRING");
 	std::stack<std::string> s6;
-	s6 = putHat(s4, s5);
+//	s6 = putHat(s4, s5);
 
 //	c
 	std::stack<int> s7;
@@ -32,7 +33,7 @@ int main() {
 	s7.push(7);
 	s7.push(17);
 	std::queue<int> s8;
-	s8 = transformToQ(s7);
+//	s8 = transformToQ(s7);
 
 //	d
 	std::stack<int> s9;
@@ -44,12 +45,13 @@ int main() {
 	s7.push(7);
 	s7.push(11);
 	s7.push(16);
+	isHat(s9, s10);
 	
 // e
 
 // f
-	std::stack<int> s11({5, 3, 1, 7});
-	change(s11);
+	std::stack<int> s11({5, 3, 6, 7, 1, 7});
+//	change(s11);
 
 	return 0;
 }
@@ -58,8 +60,8 @@ int main() {
 std::stack<int> superMerge(std::stack<int> A, std::stack<int> B) {
 	std::stack<int> C;
 	int cont = 0;
-	int midaA = A.size();
-	int midaB = B.size();
+	size_t midaA = A.size();
+	size_t midaB = B.size();
 	while(cont <= midaA) {
 		C.push(A.top());
 		A.pop();
@@ -102,7 +104,7 @@ std::queue<int> transformToQ(std::stack<int> A) {
 	std::queue<int> Q;
 	std::stack<int> B;
 	int i = 0;
-	int midaA = A.size();
+	size_t midaA = A.size();
 	while (i < midaA)
 	{
 		B.push(A.top());
@@ -119,22 +121,57 @@ std::queue<int> transformToQ(std::stack<int> A) {
 }
 
 bool isHat(std::stack<int> A, std::stack<int> B) {
+	size_t midaA = A.size(), midaB = B.size(), min;
+	std::vector<int> Vec1, Vec2;
+	int i = 0;
+	bool Hat = false;
+	if (A.size() > B.size())
+		min = B.size();
+	else if (A.size() < B.size())
+		min = A.size();
+	else
+		min = A.size();
+	while (i < midaA)
+	{
+		Vec1.insert(Vec1.end(), A.top());
+		A.pop();
+		i++;
+	}
+	i = 0;
+	while (i < midaB)
+	{
+		Vec2.insert(Vec2.end(), B.top());
+		B.pop();
+		i++;
+	}
 
-	return false;
+	for (auto it = 0; it < min; it++) {
+		if (Vec1[it] == Vec2[it]) {
+			Hat = true;
+		}
+		else {
+			Hat = false;
+			break;
+		}
+	}
+
+	return Hat;
 }
 
 void change(std::stack<int>& A) {
-	std::deque<int> D;
-	int mida = A.size();
-
-	for (int i = 0; i < mida; i++) {
-		D.push_back(A.top());
+	std::vector<int> Vec;
+	size_t mida = A.size();
+	int i = 0;
+	while (i < mida) {
+		Vec.insert(Vec.begin(), A.top());
 		A.pop();
+		i++;
 	}
-	int B = D[0];
-	D[0] = D[D.size() - 1];
-	D[D.size() - 1] = B;
-	for (auto i = D.begin(); i != D.end(); ++i) {
+	int buf = Vec[0];
+	Vec[0] = Vec.back();
+	Vec.pop_back();
+	Vec.push_back(buf);
+	for (std::vector<int>::iterator i = Vec.begin(); i != Vec.end(); ++i) {
 		A.push(*i);
 	}
 }
